@@ -1,37 +1,92 @@
-# Experiment 11(a): Representation of Graph
+# Exp No: 19
+# Representation of Graph
 
-## Aim
-To write a Python program to generate a graph for a given fixed degree sequence.
+## AIM :
 
----
+To demonstrate the adjacency list representation of an undirected graph using linked lists in Python.
 
-## Algorithm
+## ALGORITHM :
 
-1. **Start the program**:
-   - Read the degree sequence from the user input.
-   - The degree sequence represents the number of edges connected to each vertex in the graph.
-   
-2. **Define the graph representation**:
-   - Create an adjacency matrix to represent the graph. The matrix will be a square matrix where each element `mat[i][j]` is `1` if there's an edge between vertex `i` and vertex `j`, and `0` otherwise.
+Step 1 : Define AdjNode class to create nodes representing vertices connected to a vertex.
 
-3. **Construct the graph**:
-   - Loop through all pairs of vertices (`i`, `j`).
-   - If both vertices `i` and `j` have remaining degrees greater than `0`, decrement their degree and add an edge between them in the matrix.
+Step 2 : Define Graph class to initialize a graph with V vertices and an adjacency list for each.
 
-4. **Display the adjacency matrix**:
-   - Print the adjacency matrix in a human-readable format.
-   
-5. **End the program**:
-   - The graph is now represented by the adjacency matrix, and the program prints the matrix.
+Step 3 : Use add_edge() to add edges:
 
----
+a) Insert destination node at the beginning of source’s list.
 
-## Program
+b) Insert source node in destination’s list (because it’s undirected).
+
+Step 4 : In print_graph(), for each vertex:
+
+a) Print its index followed by all connected vertices using a while loop.
+
+Step 5 : Traverse each adjacency list using temp = self.graph[i] and follow .next links.
+
+Step 6 : Format the output to match the required display format.
+
+Step 7 : Call print_graph() from the main driver code to show the full graph structure.
+
+## PROGRAM :
+
+```
+class AdjNode:
+	def __init__(self, data):
+		self.vertex = data
+		self.next = None
+
+
+# A class to represent a graph. A graph
+# is the list of the adjacency lists.
+# Size of the array will be the no. of the
+# vertices "V"
+class Graph:
+	def __init__(self, vertices):
+		self.V = vertices
+		self.graph = [None] * self.V
+
+	# Function to add an edge in an undirected graph
+	def add_edge(self, src, dest):
+		# Adding the node to the source node
+		node = AdjNode(dest)
+		node.next = self.graph[src]
+		self.graph[src] = node
+
+		# Adding the source node to the destination as
+		# it is the undirected graph
+		node = AdjNode(src)
+		node.next = self.graph[dest]
+		self.graph[dest] = node
+
+	
+	def print_graph(self):
+	    for i in range(self.V):
+	        print("Adjacency list of vertex {}\n head".format(i),end="")
+	        temp=self.graph[i]
+	        while temp:
+	            print(" -> {}".format(temp.vertex),end="")
+	            temp=temp.next
+	        print(" \n")
+# Driver program to the above graph class
+if __name__ == "__main__":
+	V = 5
+	graph = Graph(V)
+	graph.add_edge(0, 1)
+	graph.add_edge(0, 4)
+	graph.add_edge(1, 2)
+	graph.add_edge(1, 3)
+	graph.add_edge(1, 4)
+	graph.add_edge(2, 3)
+	graph.add_edge(3, 4)
+
+	graph.print_graph()
 
 ```
 
-```
+## OUTPUT :
 
-## OUTPUT
+![image](https://github.com/user-attachments/assets/15e35e84-b75a-4bda-8ab9-e30a1c35ff40)
 
-## RESULT
+## RESULT :
+
+Thus demonstration of the adjacency list representation of an undirected graph using linked lists in Python is successfully verified.
